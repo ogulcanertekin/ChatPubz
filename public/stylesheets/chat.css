@@ -102,8 +102,7 @@ ul,li{
     background-position: top 12px left 14px;
     border-radius: 50%;
 }
-
-.tabArea{
+.container .left .people {
     margin-left: -1px;
     border-right: 1px solid var(--light);
     border-left: 1px solid var(--light);
@@ -111,7 +110,6 @@ ul,li{
     height: calc(76% + 1px);
     overflow:scroll;
 }
-
 .container .left .people .person {
     position: relative;
     width: 100%;
@@ -311,9 +309,6 @@ ul,li{
     background-repeat: no-repeat;
     background-position: center;
 }
-.send{
-    cursor:pointer;
-}
 .container .right .write .write-link.send:before {
     display: inline-block;
     float: left;
@@ -404,7 +399,6 @@ ul,li{
 .tab li{
     width: 50%;
     float: left;
-    cursor:pointer;
 }
 .tab li a{
     height:40px;
@@ -423,12 +417,6 @@ ul,li{
 .bottom{
     text-align: center;
     padding-top: 16px
-}
-
-.loading{
-    text-align: center;
-    font-size: 16px;
-    padding: 30px 0
 }
 
 @keyframes slideFromLeft {
@@ -470,4 +458,4 @@ ul,li{
         margin-right: 0;
         opacity: 1;
     }
-}
+} 
