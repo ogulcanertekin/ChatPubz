@@ -1,10 +1,14 @@
 const socketio = require('socket.io');
+const socketAuthorization = require('../middleware/socketAuthorization');
 
 const io = socketio();
 
 const socketApi = {
     io:io
 };
+
+//Socket authorization middleware
+io.use(socketAuthorization);
 
 // Redis Adapter
 
@@ -15,7 +19,7 @@ io.adapter(redisAdapter({
 }));
 
 io.on('connection',socket=>{
-    console.log('a user logged in');
+    console.log('a user logged in with name'+socket.request.user.name);         //Getting Data From session
 });
 
 module.exports = socketApi;
