@@ -4,12 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const session = require('express-session');
 const passport = require('passport');                     //google pass
 const dotenv = require('dotenv');                        //dotenv module
 dotenv.config();
 
 var indexRouter = require('./routes/index');
 const auth = require('./routes/auth');
+const chat = require('./routes/chat');
 
 var app = express();
 
@@ -27,10 +29,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
-app.use(passport.initialize());
+app.use(session({                                                     //Sessions
+  secret: process.env.SESSION_SECRET_KEY,                             
+  resave: false,
+  saveUninitialized: true,
+  cookie:{ secure:true, maxAge: 14 * 24 * 3600000 }                     //session-time
+}));
+
+// passport.js
+app.use(passport.initialize());                                       //Google Passport
+app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/auth',auth);
+app.use('/chat',chat);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
