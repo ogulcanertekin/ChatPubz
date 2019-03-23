@@ -1,0 +1,13 @@
+{
+  "name": "chatpubz",
+  "description": "",
+  "main": "",
+  "authors": [
+    "ogulcanertekin <ogulcanertekinn@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/ogulcanertekin/ChatPubz",
+  "dependencies": {
+    "angular": "^1.7.8"
+  }
+}
