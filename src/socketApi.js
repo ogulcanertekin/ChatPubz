@@ -7,6 +7,10 @@ const socketApi = {
     io:io
 };
 
+//libs
+
+const Users = require('./lib/Users');
+
 //Socket authorization middleware
 io.use(socketAuthorization);
 
@@ -19,7 +23,22 @@ io.adapter(redisAdapter({
 }));
 
 io.on('connection',socket=>{
-    console.log('a user logged in with name'+socket.request.user.name);         //Getting Data From session
+    console.log('a user logged in with name'+socket.request.user.name);         // Take Data from Redis Session!
+
+    Users.upsert(socket.id, socket.request.user);                               //lib-->User-->Upsert User Data to Redis when User Connected                         
+
+    Users.list((users)=>{                                                       //Returns  Users Array!
+        io.emit('onlineList',users);                                             
+    });
+
+    socket.on('disconnect',()=>{                                               //Disconnect --> Delete User from Redis in  'Online' Key
+        Users.remove(socket.request.user._id); 
+        
+        Users.list((users)=>{                                                   
+            io.emit('onlineList',users);                                             
+        });
+    });
+
 });
 
 module.exports = socketApi;
